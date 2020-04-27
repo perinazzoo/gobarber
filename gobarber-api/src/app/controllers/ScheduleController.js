@@ -26,11 +26,13 @@ class ScheduleController {
         },
       },
       order: ['date'],
-      include: {
-        model: User,
-        as: 'user',
-        attributes: ['id', 'name'],
-      },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name'],
+        },
+      ],
     });
 
     return res.json(appointments);
