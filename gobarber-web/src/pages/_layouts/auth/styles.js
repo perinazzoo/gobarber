@@ -19,6 +19,21 @@ export const Content = styled.div`
   max-width: 375px;
   text-align: center;
 
+  .input-error {
+    border: 2px solid red;
+    color: red;
+  }
+
+  .label-error {
+    color: red;
+    transform: scale(0.9) translateY(-150%) !important;
+    transition: transform 0ms;
+  }
+
+  .form-link {
+    text-align: center !important;
+  }
+
   form {
     display: flex;
     flex-direction: column;
@@ -30,10 +45,53 @@ export const Content = styled.div`
       margin-bottom: 30px;
     }
 
+    button {
+      background: #690db9;
+      height: 44px;
+      border: 0;
+      border-radius: 4px;
+      font-weight: bold;
+      color: #efefef;
+      font-size: 16px;
+      transition: all ease-out 0.1s;
+      margin-top: 5px;
+      position: relative;
+
+      &:hover {
+        background: transparent;
+        border: 2px solid #690db9;
+        color: #690db9;
+      }
+    }
+
     > div {
       width: 100%;
       position: relative;
       margin-bottom: 20px;
+      text-align: left;
+
+      a {
+        display: inline-block;
+        margin-top: 30px;
+        color: #690db9;
+        font-size: 16px;
+        position: relative;
+
+        &::after {
+          content: '';
+          width: 0%;
+          height: 2px;
+          display: block;
+          background: #690db9;
+          position: absolute;
+          transition: all 0.2s ease-in;
+        }
+
+        &:hover::after,
+        &:focus::after {
+          width: 100%;
+        }
+      }
 
       > input {
         width: 100%;
@@ -46,7 +104,7 @@ export const Content = styled.div`
         font-size: 16px;
         color: rgba(105, 13, 185, 0.7);
 
-        transition: all 0.2s ease-in;
+        transition: all 0.15s ease-in;
         line-height: 24px;
 
         &:focus {
@@ -76,53 +134,13 @@ export const Content = styled.div`
 
         transform: translateY(50%);
         pointer-events: none;
-        transition: all 0.1s linear;
+        transition: all 0.15s linear;
         background: #efefef;
       }
-    }
 
-    button {
-      background: #690db9;
-      height: 44px;
-      border: 0;
-      border-radius: 4px;
-      font-weight: bold;
-      color: #efefef;
-      font-size: 16px;
-      transition: all ease-out 0.1s;
-      margin-top: 5px;
-      position: relative;
-
-      &:hover {
-        background: transparent;
-        border: 2px solid #690db9;
-        color: #690db9;
-      }
-    }
-
-    div {
-      display: inline-block;
-      a {
-        display: inline-block;
-        margin-top: 30px;
-        color: #690db9;
-        font-size: 16px;
-        position: relative;
-
-        &::after {
-          content: '';
-          width: 0%;
-          height: 2px;
-          display: block;
-          background: #690db9;
-          position: absolute;
-          transition: all 0.2s ease-in;
-        }
-
-        &:hover::after,
-        &:focus::after {
-          width: 100%;
-        }
+      > span {
+        font-size: 12px;
+        color: red;
       }
     }
   }
