@@ -38,8 +38,6 @@ export default function SignUp() {
         password,
         provider: true,
       });
-
-      console.log(data);
     } catch (err) {
       const validationErrors = {};
 

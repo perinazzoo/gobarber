@@ -134,7 +134,7 @@ export const Content = styled.div`
 
         transform: translateY(50%);
         pointer-events: none;
-        transition: all 0.15s linear;
+        transition: all 0.1s linear;
         background: #efefef;
       }
 
