@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { signInSuccess, signFailure } from './actions';
+import { signInSuccess, signFailure, signInRequest } from './actions';
 
 export function* signIn({ payload }) {
   try {
@@ -26,13 +26,39 @@ export function* signIn({ payload }) {
   } catch (err) {
     yield put(signFailure());
     if (err.message === 'Not provider') {
-      toast.error('O usuário não é prestador 😕');
+      toast.error('😕 O usuário não é prestador');
     } else if (err.response.data.error === 'Password does not match') {
-      toast.error('Senha incorreta 😕');
+      toast.error('😕 Senha incorreta');
     } else {
       toast.error('😕 Algo deu errado, tente novamente!');
     }
   }
 }
 
-export default all([takeLeading('@auth/SIGN_IN_REQUEST', signIn)]);
+export function* signUp({ payload }) {
+  try {
+    const { name, email, password } = payload;
+
+    yield call(api.post, '/users', {
+      name,
+      email,
+      password,
+      provider: true,
+    });
+
+    yield put(signInRequest(email, password));
+  } catch (err) {
+    yield put(signFailure());
+
+    if (err.response.data.error === 'This email has already been taken.') {
+      toast.error('😕 Já existe uma conta com este email');
+    } else {
+      toast.error('😕 Algo deu errado, tente novamente!');
+    }
+  }
+}
+
+export default all([
+  takeLeading('@auth/SIGN_IN_REQUEST', signIn),
+  takeLeading('@auth/SIGN_UP_REQUEST', signUp),
+]);

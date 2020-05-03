@@ -20,6 +20,9 @@ export default function Auth(state = INITIAL_STATE, action) {
       case '@auth/SIGN_FAILURE':
         draft.loading = false;
         return draft;
+      case '@auth/SIGN_UP_REQUEST':
+        draft.loading = true;
+        return draft;
       default:
         return state;
     }

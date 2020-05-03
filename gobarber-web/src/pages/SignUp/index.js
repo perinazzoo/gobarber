@@ -1,15 +1,19 @@
 import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
+import { signUpRequest } from '~/store/modules/auth/actions';
+
 import CustomInput from '~/components/CustomInput';
-import api from '~/services/api';
 
 import logo from '~/assets/logo.svg';
 
 export default function SignUp() {
   const formRef = useRef(null);
+  const dispatch = useDispatch();
+  const { loading } = useSelector(({ auth }) => auth);
 
   async function handleSubmit({ name, email, password }) {
     try {
@@ -32,12 +36,7 @@ export default function SignUp() {
         }
       );
 
-      const { data } = await api.post('/users', {
-        name,
-        email,
-        password,
-        provider: true,
-      });
+      dispatch(signUpRequest(name, email, password));
     } catch (err) {
       const validationErrors = {};
 
@@ -86,7 +85,7 @@ export default function SignUp() {
           />
         </div>
 
-        <button type="submit">Cadastrar</button>
+        <button type="submit">{loading ? 'Carregando' : 'Cadastrar'}</button>
 
         <div className="form-link">
           <Link to="/">Já tenho uma conta!</Link>
