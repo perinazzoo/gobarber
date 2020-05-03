@@ -21,6 +21,8 @@ export function* signIn({ payload }) {
       throw new Error('Not provider');
     }
 
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
     yield put(signInSuccess(token, user));
     history.push('/schedule');
   } catch (err) {
@@ -58,7 +60,20 @@ export function* signUp({ payload }) {
   }
 }
 
+export function setToken({ payload }) {
+  if (!payload) {
+    return;
+  }
+
+  const { token } = payload.auth;
+
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
 export default all([
+  takeLeading('persist/REHYDRATE', setToken),
   takeLeading('@auth/SIGN_IN_REQUEST', signIn),
   takeLeading('@auth/SIGN_UP_REQUEST', signUp),
 ]);
