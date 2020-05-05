@@ -23,6 +23,10 @@ export default function Auth(state = INITIAL_STATE, action) {
       case '@auth/SIGN_UP_REQUEST':
         draft.loading = true;
         return draft;
+      case '@auth/SIGN_OUT':
+        draft.token = null;
+        draft.signed = false;
+        return draft;
       default:
         return state;
     }
