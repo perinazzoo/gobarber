@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Form } from '@unform/web';
 import { useSelector, useDispatch } from 'react-redux';
+import * as Yup from 'yup';
 
 import CustomInput from '~/components/CustomInput';
 import AvatarInput from './components/AvatarInput';
@@ -15,12 +16,49 @@ export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(({ user }) => user);
 
-  function handleSubmit(data) {
-    dispatch(updateProfileRequest(data));
+  async function handleSubmit(data) {
+    try {
+      formRef.current.setErrors({});
 
-    formRef.current.setFieldValue('oldPassword', '');
-    formRef.current.setFieldValue('password', '');
-    formRef.current.setFieldValue('confirmPassword', '');
+      const schema = Yup.object().shape({
+        name: Yup.string().min(
+          3,
+          'Nome muito curto, o mínimo são 3 caracteres'
+        ),
+        email: Yup.string().email('Insira um email válido'),
+        oldPassword: Yup.string().when(
+          ['password', 'confirmPassword'],
+          (password, confirmPassword, field) =>
+            password || confirmPassword
+              ? field.required(
+                'Para alterar a senha você precisa inserir sua senha atual'
+              )
+              : field
+        ),
+        password: Yup.string(),
+        confirmPassword: Yup.string().when('password', (_, field) =>
+          field.oneOf([Yup.ref('password')], 'As senhas não coincidem')
+        ),
+      });
+
+      await schema.validate(data, { abortEarly: false });
+
+      dispatch(updateProfileRequest(data));
+
+      formRef.current.setFieldValue('oldPassword', '');
+      formRef.current.setFieldValue('password', '');
+      formRef.current.setFieldValue('confirmPassword', '');
+    } catch (err) {
+      const validationErrors = {};
+
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach((error) => {
+          validationErrors[error.path] = error.message;
+        });
+
+        formRef.current.setErrors(validationErrors);
+      }
+    }
   }
 
   function handleLogout() {

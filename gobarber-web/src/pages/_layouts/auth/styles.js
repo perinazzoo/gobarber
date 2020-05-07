@@ -12,6 +12,8 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  overflow-y: auto;
 `;
 
 export const Content = styled.div`
@@ -37,7 +39,7 @@ export const Content = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    background: #efefef;
+    background: #fefefe;
     padding: 30px;
     border-radius: 8px;
 
@@ -51,7 +53,7 @@ export const Content = styled.div`
       border: 0;
       border-radius: 4px;
       font-weight: bold;
-      color: #efefef;
+      color: #fefefe;
       font-size: 16px;
       transition: all ease-out 0.1s;
       margin-top: 5px;
@@ -135,7 +137,7 @@ export const Content = styled.div`
         transform: translateY(50%);
         pointer-events: none;
         transition: all 0.1s linear;
-        background: #efefef;
+        background: #fefefe;
       }
 
       > span {

@@ -21,6 +21,10 @@ export default createGlobalStyle`
    height: 100%;
  }
 
+ html, body {
+   overflow: auto;
+ }
+
  body {
    -webkit-font-smoothing: antialiased !important;
  }
