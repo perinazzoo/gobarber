@@ -14,12 +14,15 @@ export const Wrapper = styled.div`
   justify-content: center;
 
   overflow-y: auto;
+  position: relative;
 `;
 
 export const Content = styled.div`
   width: 100%;
   max-width: 375px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 
   .input-error {
     border: 2px solid red;

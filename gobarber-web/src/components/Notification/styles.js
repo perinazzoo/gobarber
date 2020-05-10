@@ -36,7 +36,7 @@ export const NotificationList = styled.div`
   background: rgba(0, 0, 0, 0.75);
   border-radius: 4px;
   padding: 15px 5px;
-  z-index: 1;
+  z-index: 3;
 
   display: ${({ visible }) => (visible ? 'block' : 'none')};
 

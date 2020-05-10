@@ -10,4 +10,10 @@ export const Wrapper = styled.div`
   );
 
   overflow-y: auto;
+  position: relative;
+`;
+
+export const Content = styled.div`
+  position: relative;
+  z-index: 1;
 `;
