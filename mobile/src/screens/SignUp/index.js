@@ -1,47 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Keyboard } from 'react-native';
+import React from 'react';
 
 import Container from '~/components/Container';
 import Button from '~/components/Button';
 import Title from '~/components/Title';
+import BgImage from '~/components/BackgroundImage';
 
-import Logo from '~/assets/images/Logo.png';
-import Bottom from '~/assets/images/Bottom.png';
-
-import { Content, LogoImage, SubTitle, FormInput, BgImage } from './styles';
+import { SubTitle, FormInput } from './styles';
 
 export default function SignUp() {
-  const [keyboardOpened, setKeyboardOpened] = useState(false);
-
-  const handleKeyboardShow = () => {
-    setKeyboardOpened(true);
-  };
-
-  const handleKeyboardHide = () => {
-    setKeyboardOpened(false);
-  };
-
-  useEffect(() => {
-    const keyUpSub = Keyboard.addListener(
-      'keyboardDidShow',
-      handleKeyboardShow
-    );
-    const keyDownSub = Keyboard.addListener(
-      'keyboardDidHide',
-      handleKeyboardHide
-    );
-
-    return () => {
-      keyUpSub.remove();
-      keyDownSub.remove();
-    };
-  }, []);
-
   return (
-    <Container>
-      <Content keyboardOpened={keyboardOpened}>
-        <LogoImage source={Logo} keyboardOpened={keyboardOpened} />
-
+    <>
+      <Container>
         <Title fontSize="28px" marginBottom="10px">
           Bem-vindo!
         </Title>
@@ -64,8 +33,8 @@ export default function SignUp() {
         />
 
         <Button>Cadastrar</Button>
-      </Content>
-      <BgImage source={Bottom} />
-    </Container>
+        <BgImage />
+      </Container>
+    </>
   );
 }

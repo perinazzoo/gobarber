@@ -1,7 +1,11 @@
-import styled from 'styled-components/native';
+import React from 'react';
 
-export default styled.View`
-  flex: 1;
-  background-color: #fff;
-  padding: 0 35px;
-`;
+import { Container, Content } from './styles';
+
+export default function ContainerWrapper({ children }) {
+  return (
+    <Container>
+      <Content>{children}</Content>
+    </Container>
+  );
+}

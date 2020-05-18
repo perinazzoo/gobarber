@@ -1,47 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Keyboard } from 'react-native';
+import React from 'react';
 
 import Title from '~/components/Title';
 import Container from '~/components/Container';
 import Button from '~/components/Button';
+import BgImage from '~/components/BackgroundImage';
 
-import Logo from '~/assets/images/Logo.png';
-import BottomBg from '~/assets/images/Bottom.png';
-
-import { Content, LogoImage, SubTitle, FormInput, BgImage } from './styles';
+import { SubTitle, FormInput } from './styles';
 
 export default function SignIn() {
-  const [keyboardOpened, setKeyboardOpened] = useState(false);
-
-  const handleKeyboardHide = useCallback(() => {
-    setKeyboardOpened(false);
-  }, []);
-
-  const handleKeyboardShow = useCallback(() => {
-    setKeyboardOpened(true);
-  }, []);
-
-  useEffect(() => {
-    const keyUpSub = Keyboard.addListener(
-      'keyboardDidShow',
-      handleKeyboardShow
-    );
-    const keyDownSub = Keyboard.addListener(
-      'keyboardDidHide',
-      handleKeyboardHide
-    );
-
-    return () => {
-      keyUpSub.remove();
-      keyDownSub.remove();
-    };
-  }, [handleKeyboardHide, handleKeyboardShow]);
-
   return (
-    <Container>
-      <Content>
-        <LogoImage source={Logo} keyboardOpened={keyboardOpened} />
-
+    <>
+      <Container>
         <Title marginBottom="20px" fontSize="28px">
           Olá novamente!
         </Title>
@@ -53,8 +22,8 @@ export default function SignIn() {
         <FormInput IconName="vpn-key" placeholder="Senha" />
 
         <Button>Entrar</Button>
-      </Content>
-      <BgImage source={BottomBg} />
-    </Container>
+        <BgImage />
+      </Container>
+    </>
   );
 }
