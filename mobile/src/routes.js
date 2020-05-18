@@ -10,9 +10,9 @@ const { Navigator, Screen } = createStackNavigator();
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Navigator>
-        <Screen name="signin" component={SignIn} />
+      <Navigator screenOptions={{ headerShown: false }}>
         <Screen name="signup" component={SignUp} />
+        <Screen name="signin" component={SignIn} />
       </Navigator>
     </NavigationContainer>
   );
