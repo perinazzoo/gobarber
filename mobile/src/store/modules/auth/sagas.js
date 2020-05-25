@@ -17,6 +17,7 @@ export function* signIn({ payload }) {
     });
 
     if (user.provider) {
+      yield put(signFailure());
       return Alert.alert('😕 O usuário é um prestador');
     }
 

@@ -6,7 +6,7 @@ import BgImage from '~/components/BackgroundImage';
 
 import Logo from '~/assets/images/Logo.png';
 
-import { LogoImage, CustomText, CustomButton } from './styles';
+import { LogoImage, SignUpButton, SignInButton, ButtonBorder } from './styles';
 
 export default function Welcome() {
   const { navigate } = useNavigation();
@@ -14,10 +14,13 @@ export default function Welcome() {
   return (
     <Container>
       <LogoImage source={Logo} />
-      <CustomText>Olá, escolha uma das seguintes opções:</CustomText>
-      <CustomButton onPress={() => navigate('signin')}>Entrar</CustomButton>
-      <CustomText>OU</CustomText>
-      <CustomButton onPress={() => navigate('signup')}>Cadastrar</CustomButton>
+      <SignUpButton onPress={() => navigate('signup')}>
+        Quero me cadastrar
+      </SignUpButton>
+      <ButtonBorder />
+      <SignInButton textColor="#7159c1" onPress={() => navigate('signin')}>
+        Já tenho uma conta
+      </SignInButton>
       <BgImage />
     </Container>
   );

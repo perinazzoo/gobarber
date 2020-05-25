@@ -33,7 +33,6 @@ export default function SignIn() {
         <SubTitle>preencha suas credenciais.</SubTitle>
 
         <FormInput
-          autoFocus
           IconName="email"
           placeholder="Email"
           keyboardType="email-address"
