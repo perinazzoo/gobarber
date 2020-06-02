@@ -1,23 +1,35 @@
-import React from 'react';
-import { FlatList } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React, { useEffect, useState } from 'react';
+
+import api from '~/services/api';
+
+import AppointmentItem from '~/components/AppointmentItem';
 
 import Title from '~/components/Title';
 
-import {
-  Container,
-  List,
-  ListItem,
-  ProviderInfo,
-  Avatar,
-  TextInfo,
-  Name,
-  Time,
-} from './styles';
-
-const test = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+import { Container, List } from './styles';
 
 export default function Dashboard() {
+  const [appointments, setAppointments] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await api.get('/appointments');
+
+      const data = response.data.map((appoint) => ({
+        ...appoint,
+        id: String(appoint.id),
+      }));
+
+      setAppointments(data);
+    })();
+  }, []);
+
+  async function handleCancel(id) {
+    await api.delete(`/appointments/${id}`);
+
+    setAppointments(appointments.filter((appoint) => appoint.id !== id));
+  }
+
   return (
     <Container>
       <Title marginBottom="10px" style={{ alignSelf: 'center' }}>
@@ -26,25 +38,13 @@ export default function Dashboard() {
 
       <List
         showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => String(item)}
-        data={test}
+        keyExtractor={(item) => item.id}
+        data={appointments}
         renderItem={({ item }) => (
-          <ListItem>
-            <ProviderInfo>
-              <Avatar
-                source={{
-                  uri:
-                    'https://images.unsplash.com/photo-1510227272981-87123e259b17?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=3759e09a5b9fbe53088b23c615b6312e',
-                }}
-              />
-              <TextInfo>
-                <Name>La Belle</Name>
-                <Time>Amanhã às 11:00h</Time>
-              </TextInfo>
-            </ProviderInfo>
-
-            <Icon name="event-busy" size={24} color="#FF637E" />
-          </ListItem>
+          <AppointmentItem
+            handleCancel={() => handleCancel(item.id)}
+            item={item}
+          />
         )}
       />
     </Container>
