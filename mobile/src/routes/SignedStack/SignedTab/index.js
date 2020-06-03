@@ -2,7 +2,6 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import CustomTabBar from '~/components/CustomTabBar';
-import PlusButton from '~/components/PlusButton';
 
 import Dashboard from '~/screens/Dashboard';
 import Profile from '~/screens/Profile';
@@ -14,18 +13,18 @@ const Tab = createBottomTabNavigator();
 export default function SignedTab() {
   return (
     <>
-      <PlusButton />
       <Tab.Navigator
         // eslint-disable-next-line react/jsx-props-no-spreading
         tabBar={(props) => <CustomTabBar {...props} />}
         tabBarOptions={{
           activeTintColor: '#7159C1',
           inactiveTintColor: '#666',
+          keyboardHidesTabBar: true,
           style: {
             backgroundColor: '#fff',
             height: 56,
             borderTopColor: '#eee',
-            elevation: 8,
+            elevation: 3,
           },
         }}
         screenOptions={({ route }) => ({

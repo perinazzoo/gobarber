@@ -12,7 +12,7 @@ export const Button = styled(LinearGradient).attrs({
   align-items: center;
   position: absolute;
   z-index: 2;
-  elevation: 3;
+  elevation: 4;
   bottom: 20px;
   left: ${({ screenWidth }) => screenWidth / 2 - 30}px;
 `;
