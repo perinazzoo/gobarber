@@ -17,8 +17,8 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   function handleSumit() {
     dispatch(signUpRequest(name, email, password));

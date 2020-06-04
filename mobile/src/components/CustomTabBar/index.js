@@ -31,8 +31,13 @@ export default function CustomTabBar({
 
   useEffect(() => {
     if (keyboardHidesTabBar) {
-      Keyboard.addListener('keyboardDidShow', keyboardShow);
-      Keyboard.addListener('keyboardDidHide', keyboardHide);
+      const openSub = Keyboard.addListener('keyboardDidShow', keyboardShow);
+      const closeSub = Keyboard.addListener('keyboardDidHide', keyboardHide);
+
+      return () => {
+        openSub.remove();
+        closeSub.remove();
+      };
     }
   }, [keyboardHidesTabBar, keyboardHide, keyboardShow]);
 

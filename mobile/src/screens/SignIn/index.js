@@ -13,7 +13,7 @@ import { SubTitle, FormInput } from './styles';
 export default function SignIn() {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
-  const passwordRef = useRef(null);
+  const passwordRef = useRef();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
