@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Container from '~/components/Container';
+import DateInput from '~/components/DateInput';
 
-// import { Container } from './styles';
+import { Content } from './styles';
 
 const SelectDateTime = () => {
-  return <Container />;
+  const [date, setDate] = useState('');
+
+  return (
+    <Container>
+      <Content>
+        <DateInput date={date} onChange={setDate} />
+      </Content>
+    </Container>
+  );
 };
 
 export default SelectDateTime;
