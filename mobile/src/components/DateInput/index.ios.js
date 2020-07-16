@@ -28,7 +28,6 @@ export default function DateInput({ date, onChange }) {
             minimumDate={new Date()}
             minuteInterval={60}
             locale="pt"
-            mode="date"
           />
         </Picker>
       )}
@@ -42,5 +41,5 @@ DateInput.propTypes = {
 };
 
 DateInput.defaultProps = {
-  date: '',
+  date: null,
 };
