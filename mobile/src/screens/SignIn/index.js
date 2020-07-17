@@ -13,7 +13,8 @@ import { SubTitle, FormInput } from './styles';
 export default function SignIn() {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
-  const passwordRef = useRef();
+  const emailRef = useRef('email');
+  const passwordRef = useRef('pass');
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,6 +34,7 @@ export default function SignIn() {
         <SubTitle>preencha suas credenciais.</SubTitle>
 
         <FormInput
+          ref={emailRef}
           IconName="email"
           placeholder="Email"
           keyboardType="email-address"
@@ -44,9 +46,9 @@ export default function SignIn() {
           autoCapitalize="none"
         />
         <FormInput
+          ref={passwordRef}
           IconName="vpn-key"
           placeholder="Senha"
-          ref={passwordRef}
           returnKeyType="send"
           onSubmitEditing={handleSubmit}
           value={password}

@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import SelectProvider from '~/screens/SelectProvider';
 import SelectDateTime from '~/screens/SelectDateTime';
+import ConfirmAppointment from '~/screens/ConfirmAppointment';
 
 const Stack = createStackNavigator();
 
@@ -52,6 +53,19 @@ export default function NewAppointmentStack() {
           title: 'Agora defina a data',
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigate('SelectProvider')}>
+              <Icon name="arrow-back" size={30} color="#7159C1" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="ConfirmAppointment"
+        component={ConfirmAppointment}
+        options={{
+          title: 'Tem certeza?',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigate('SelectDateTime')}>
               <Icon name="arrow-back" size={30} color="#7159C1" />
             </TouchableOpacity>
           ),

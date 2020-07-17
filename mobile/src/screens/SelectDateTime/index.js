@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { WheelPicker } from '@delightfulstudio/react-native-wheel-picker-android';
 
 import DateInput from '~/components/DateInput';
@@ -7,6 +8,8 @@ import ConfirmationInput from '~/components/ConfirmationInput';
 import { Content, PickerContainer } from './styles';
 
 export default function SelectDateTiem() {
+  const { params: provider } = useRoute();
+  const { navigate } = useNavigation();
   const [date, setDate] = useState('');
   const [hours, setHours] = useState([]);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -14,8 +17,21 @@ export default function SelectDateTiem() {
   const times = useMemo(() => hours.map((h) => h.time), [hours]);
 
   useEffect(() => {
-    setSelectedTime(times[parseInt(times.length / 2, 10)]);
-  }, [times]);
+    if (!selectedTime) {
+      setSelectedTime(times[parseInt(times.length / 2, 10)]);
+    }
+  }, [times, selectedTime]);
+
+  function handleConfirmDateTime() {
+    const time = hours.find((hour) => hour.time === selectedTime);
+
+    if (!time || !date) return;
+
+    navigate('ConfirmAppointment', {
+      time,
+      provider,
+    });
+  }
 
   return (
     <Content>
@@ -23,8 +39,7 @@ export default function SelectDateTiem() {
         date={date}
         onChange={setDate}
         setHours={setHours}
-        setSelectedTime={setSelectedTime}
-        selectedTime={selectedTime}
+        id={provider.id}
       />
       <PickerContainer>
         {times !== [] && (
@@ -41,7 +56,11 @@ export default function SelectDateTiem() {
           />
         )}
       </PickerContainer>
-      <ConfirmationInput date={date} time={selectedTime} />
+      <ConfirmationInput
+        date={date}
+        time={selectedTime}
+        onPress={handleConfirmDateTime}
+      />
     </Content>
   );
 }

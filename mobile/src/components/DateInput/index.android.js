@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 
@@ -8,8 +7,7 @@ import api from '~/services/api';
 
 import { Container, DateButton, DateText } from './styles';
 
-export default function DateInput({ date, onChange, setHours }) {
-  const { params: provider } = useRoute();
+export default function DateInput({ id, date, onChange, setHours }) {
   const [opened, setOpened] = useState(false);
 
   async function handleChange(e) {
@@ -17,7 +15,7 @@ export default function DateInput({ date, onChange, setHours }) {
     if (e.nativeEvent.timestamp) {
       onChange(e.nativeEvent.timestamp);
 
-      const { data } = await api.get(`/providers/${provider.id}/available`, {
+      const { data } = await api.get(`/providers/${id}/available`, {
         params: {
           date: e.nativeEvent.timestamp,
         },
@@ -51,8 +49,10 @@ DateInput.propTypes = {
   date: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
   setHours: PropTypes.func.isRequired,
+  id: PropTypes.number,
 };
 
 DateInput.defaultProps = {
   date: null,
+  id: null,
 };

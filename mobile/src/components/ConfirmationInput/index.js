@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { Container, InputText, IconContainer } from './styles';
 
-export default function ConfirmationInput({ date, time }) {
+export default function ConfirmationInput({ date, time, onPress }) {
   const dateFormatted = useMemo(
     () => date && format(date, "dd 'de' MMMM 'de' yyyy", { locale: pt }),
     [date]
@@ -19,7 +19,7 @@ export default function ConfirmationInput({ date, time }) {
           ? `${dateFormatted} - ${time}h`
           : 'Confirme o seu horário ao lado'}
       </InputText>
-      <IconContainer onPress={() => { }}>
+      <IconContainer onPress={onPress}>
         <Icon name="check-circle" size={36} color="#0BD9AC" />
       </IconContainer>
     </Container>
@@ -29,9 +29,11 @@ export default function ConfirmationInput({ date, time }) {
 ConfirmationInput.propTypes = {
   date: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   time: PropTypes.string,
+  onPress: PropTypes.func,
 };
 
 ConfirmationInput.defaultProps = {
   date: '',
   time: null,
+  onPress: null,
 };

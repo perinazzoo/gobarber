@@ -17,8 +17,9 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const nameRef = useRef('name');
+  const emailRef = useRef('email');
+  const passwordRef = useRef('pass');
 
   function handleSumit() {
     dispatch(signUpRequest(name, email, password));
@@ -35,6 +36,7 @@ export default function SignUp() {
         <SubTitle>preencha seus dados.</SubTitle>
 
         <FormInput
+          ref={nameRef}
           IconName="person"
           placeholder="Nome completo"
           returnKeyType="next"
