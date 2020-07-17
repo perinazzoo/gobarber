@@ -14,10 +14,11 @@ export default function Profile() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state);
 
-  const emailRef = useRef();
-  const oldPasswordRef = useRef();
-  const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
+  const nameRef = useRef('name');
+  const emailRef = useRef('email');
+  const oldPasswordRef = useRef('oldpass');
+  const passwordRef = useRef('pass');
+  const confirmPasswordRef = useRef('confirmpass');
 
   const [name, setName] = useState((user && user.name) || '');
   const [email, setEmail] = useState((user && user.email) || '');
@@ -71,6 +72,7 @@ export default function Profile() {
       <Title style={{ alignSelf: 'center' }}>Atualizar Perfil</Title>
       <Form>
         <FormInput
+          ref={nameRef}
           IconName="person"
           placeholder="Nome completo"
           value={name}
@@ -80,8 +82,8 @@ export default function Profile() {
           returnKeyType="next"
         />
         <FormInput
-          keyboardType="email-address"
           ref={emailRef}
+          keyboardType="email-address"
           IconName="email"
           placeholder="Email"
           value={email}
