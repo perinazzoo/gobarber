@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PropTypes from 'prop-types';
 
 import { Container, InputText, IconContainer } from './styles';
 
@@ -14,7 +15,7 @@ export default function ConfirmationInput({ date, time }) {
   return (
     <Container>
       <InputText>
-        {date && time
+        {date
           ? `${dateFormatted} - ${time}h`
           : 'Confirme o seu horário ao lado'}
       </InputText>
@@ -24,3 +25,13 @@ export default function ConfirmationInput({ date, time }) {
     </Container>
   );
 }
+
+ConfirmationInput.propTypes = {
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  time: PropTypes.string,
+};
+
+ConfirmationInput.defaultProps = {
+  date: '',
+  time: null,
+};

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { WheelPicker } from '@delightfulstudio/react-native-wheel-picker-android';
 
 import DateInput from '~/components/DateInput';
@@ -9,13 +9,23 @@ import { Content, PickerContainer } from './styles';
 export default function SelectDateTiem() {
   const [date, setDate] = useState('');
   const [hours, setHours] = useState([]);
-  const [selectedTime, setSelectedTime] = useState('');
+  const [selectedTime, setSelectedTime] = useState(null);
 
   const times = useMemo(() => hours.map((h) => h.time), [hours]);
 
+  useEffect(() => {
+    setSelectedTime(times[parseInt(times.length / 2, 10)]);
+  }, [times]);
+
   return (
     <Content>
-      <DateInput date={date} onChange={setDate} setHours={setHours} />
+      <DateInput
+        date={date}
+        onChange={setDate}
+        setHours={setHours}
+        setSelectedTime={setSelectedTime}
+        selectedTime={selectedTime}
+      />
       <PickerContainer>
         {times !== [] && (
           <WheelPicker

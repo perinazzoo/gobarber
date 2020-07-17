@@ -1,7 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { format } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 import { useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
