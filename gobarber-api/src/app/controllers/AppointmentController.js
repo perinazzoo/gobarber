@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
@@ -17,7 +18,7 @@ class AppointmentController {
 
     const appointments = await Appointment.findAll({
       where: { user_id: req.userId, cancelled_at: null },
-      order: [['date', 'DESC']],
+      order: [['date']],
       limit: 20,
       offset: (page - 1) * 20,
       attributes: ['id', 'date', 'past', 'cancelable', 'cancelled_at'],
