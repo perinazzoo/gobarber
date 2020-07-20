@@ -22,7 +22,7 @@ export default function AppoitmentItem({ item, handleCancel }) {
           source={{
             uri: item.provider.avatar
               ? item.provider.avatar.url
-              : 'https://images.unsplash.com/photo-1510227272981-87123e259b17?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=3759e09a5b9fbe53088b23c615b6312e',
+              : `https://api.adorable.io/avatars/120/${item.provider.name}.png`,
           }}
         />
         <TextInfo>

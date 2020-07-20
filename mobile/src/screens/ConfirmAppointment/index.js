@@ -44,7 +44,9 @@ export default function ConfirmAppointment() {
         <ImageContainer>
           <Image
             source={{
-              uri: provider.avatar.url,
+              uri: provider.avatar
+                ? provider.avatar.url
+                : `https://api.adorable.io/avatars/120/${provider.name}.png`,
             }}
           />
         </ImageContainer>
