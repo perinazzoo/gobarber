@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { isBefore } from 'date-fns';
 
 import api from '~/services/api';
 
@@ -11,7 +13,7 @@ import { Container, List } from './styles';
 export default function Dashboard() {
   const [appointments, setAppointments] = useState([]);
 
-  useEffect(() => {
+  const loadAppoitments = useCallback(() => {
     (async () => {
       const response = await api.get('/appointments');
 
@@ -20,9 +22,21 @@ export default function Dashboard() {
         id: String(appoint.id),
       }));
 
-      setAppointments(data);
+      const pastItems = data.filter((item) => item.past);
+
+      const futureItems = data.filter((item) => !item.past);
+
+      const sortedPastItems = pastItems.sort((a, b) => {
+        if (a.date > b.date) return -1;
+
+        return 1;
+      });
+
+      setAppointments([...futureItems, ...sortedPastItems]);
     })();
   }, []);
+
+  useFocusEffect(loadAppoitments);
 
   async function handleCancel(id) {
     await api.delete(`/appointments/${id}`);
