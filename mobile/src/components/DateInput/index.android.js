@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
@@ -11,17 +12,21 @@ export default function DateInput({ id, date, onChange, setHours }) {
   const [opened, setOpened] = useState(false);
 
   async function handleChange(e) {
-    setOpened(false);
-    if (e.nativeEvent.timestamp) {
-      onChange(e.nativeEvent.timestamp);
+    try {
+      setOpened(false);
+      if (e.nativeEvent.timestamp) {
+        onChange(e.nativeEvent.timestamp);
 
-      const { data } = await api.get(`/providers/${id}/available`, {
-        params: {
-          date: e.nativeEvent.timestamp,
-        },
-      });
+        const { data } = await api.get(`/providers/${id}/available`, {
+          params: {
+            date: e.nativeEvent.timestamp,
+          },
+        });
 
-      setHours(data.filter((h) => h.available));
+        setHours(data.filter((h) => h.available));
+      }
+    } catch (err) {
+      Alert.alert('Oops', 'Algo deu errado, por favor, tente novamente');
     }
   }
 

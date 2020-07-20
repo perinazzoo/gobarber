@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { isBefore } from 'date-fns';
+import { Alert } from 'react-native';
 
 import api from '~/services/api';
 
@@ -15,24 +15,28 @@ export default function Dashboard() {
 
   const loadAppoitments = useCallback(() => {
     (async () => {
-      const response = await api.get('/appointments');
+      try {
+        const response = await api.get('/appointments');
 
-      const data = response.data.map((appoint) => ({
-        ...appoint,
-        id: String(appoint.id),
-      }));
+        const data = response.data.map((appoint) => ({
+          ...appoint,
+          id: String(appoint.id),
+        }));
 
-      const pastItems = data.filter((item) => item.past);
+        const pastItems = data.filter((item) => item.past);
 
-      const futureItems = data.filter((item) => !item.past);
+        const futureItems = data.filter((item) => !item.past);
 
-      const sortedPastItems = pastItems.sort((a, b) => {
-        if (a.date > b.date) return -1;
+        const sortedPastItems = pastItems.sort((a, b) => {
+          if (a.date > b.date) return -1;
 
-        return 1;
-      });
+          return 1;
+        });
 
-      setAppointments([...futureItems, ...sortedPastItems]);
+        setAppointments([...futureItems, ...sortedPastItems]);
+      } catch (err) {
+        Alert.alert('Oops', 'Algo deu errado, por favor, tente novamente');
+      }
     })();
   }, []);
 

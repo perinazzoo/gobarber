@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { Alert } from 'react-native';
 
 import api from '~/services/api';
 
@@ -13,14 +14,18 @@ export default function SelectProvider() {
 
   useEffect(() => {
     (async () => {
-      const response = await api.get('/providers');
+      try {
+        const response = await api.get('/providers');
 
-      const data = response.data.map((provider) => ({
-        ...provider,
-        bg: Math.floor(Math.random() * (11 - 1)) + 1,
-      }));
+        const data = response.data.map((provider) => ({
+          ...provider,
+          bg: Math.floor(Math.random() * (11 - 1)) + 1,
+        }));
 
-      setProviders(data);
+        setProviders(data);
+      } catch (err) {
+        Alert.alert('Oops', 'Algo deu errado, por favor, tente novamente');
+      }
     })();
   }, []);
 

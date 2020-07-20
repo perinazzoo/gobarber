@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -30,12 +31,16 @@ export default function ConfirmAppointment() {
   }, [time]);
 
   async function handleConfirm() {
-    await api.post('/appointments', {
-      provider_id: provider.id,
-      date: time.value,
-    });
+    try {
+      await api.post('/appointments', {
+        provider_id: provider.id,
+        date: time.value,
+      });
 
-    navigate('dashboard');
+      navigate('dashboard');
+    } catch (err) {
+      Alert.alert('Oops', 'Algo deu errado, por favor, tente novamente');
+    }
   }
 
   return (
