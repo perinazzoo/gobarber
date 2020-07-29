@@ -10,11 +10,15 @@ class UserController {
         .email()
         .required(),
       password: Yup.string()
-        .required()
-        .min(6),
+        .min(6)
+        .required(),
     });
 
     if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation failed' });
+    }
+
+    if (typeof req.body.password !== 'string') {
       return res.status(400).json({ error: 'Validation failed' });
     }
 
@@ -22,7 +26,7 @@ class UserController {
 
     if (userExists) {
       return res
-        .status(400)
+        .status(409)
         .json({ error: 'This email has already been taken.' });
     }
 
@@ -61,7 +65,7 @@ class UserController {
 
       if (userExists) {
         return res
-          .status(400)
+          .status(409)
           .json({ error: 'This email has already been taken.' });
       }
     }
