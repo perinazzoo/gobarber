@@ -33,7 +33,7 @@ class SessionController {
 
     if (!user) {
       return res
-        .status(401)
+        .status(404)
         .json({ error: 'This email doesnt match any account' });
     }
 

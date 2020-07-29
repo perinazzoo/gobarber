@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "queue": "nodemon src/queue.js",
-    "dev:debug": "nodemon --inspect src/server.js"
+    "dev:debug": "nodemon --inspect src/server.js",
+    "pretest": "NODE_ENV=test sequelize db:migrate",
+    "test": "NODE_ENV=test jest --detectOpenHandles",
+    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
   },
   "dependencies": {
     "@sentry/node": "5.12.2",
@@ -30,14 +33,20 @@
     "yup": "^0.28.1"
   },
   "devDependencies": {
+    "@sucrase/jest-plugin": "^2.0.0",
+    "@types/jest": "^26.0.7",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jest": "^23.19.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^26.1.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "sequelize-cli": "^5.5.1",
-    "sucrase": "^3.12.1"
+    "sqlite3": "^5.0.0",
+    "sucrase": "^3.12.1",
+    "supertest": "^4.0.2"
   }
 }

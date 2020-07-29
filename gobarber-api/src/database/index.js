@@ -30,6 +30,10 @@ class Database {
       useUnifiedTopology: true,
     });
   }
+
+  async mongoDisconnect() {
+    await mongoose.disconnect();
+  }
 }
 
 export default new Database();
