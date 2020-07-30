@@ -282,4 +282,19 @@ describe('User', () => {
 
     expect(response.status).toBe(401);
   });
+
+  it('should be able to create a provider user', async () => {
+    const { body } = await request(app)
+      .post('/users')
+      .send({
+        name: 'Bruno Henrique',
+        email: 'bruno@henrique.com',
+        password: '123456',
+        provider: true,
+      });
+
+    const user = await User.findByPk(body.id);
+
+    expect(user.provider).toBe(true);
+  });
 });
