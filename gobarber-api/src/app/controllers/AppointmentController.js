@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import { Op } from 'sequelize';
 import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
@@ -59,7 +58,7 @@ class AppointmentController {
 
     if (req.userId === provider_id) {
       return res
-        .status(401)
+        .status(403)
         .json({ error: 'You cannot create an appointment with yourself' });
     }
 
@@ -73,7 +72,7 @@ class AppointmentController {
 
     if (!isProvider) {
       return res
-        .status(401)
+        .status(403)
         .json({ error: 'The user does not exists or is not a provider' });
     }
 
@@ -84,7 +83,7 @@ class AppointmentController {
     const hourStart = startOfHour(parseISO(date));
 
     if (isBefore(hourStart, new Date())) {
-      return res.status(400).json({ error: 'Past dates are not permitted' });
+      return res.status(403).json({ error: 'Past dates are not permitted' });
     }
 
     /**
@@ -101,7 +100,7 @@ class AppointmentController {
 
     if (isNOTAvailable) {
       return res
-        .status(400)
+        .status(403)
         .json({ error: 'Appointment date is not available' });
     }
 
@@ -158,14 +157,14 @@ class AppointmentController {
 
     if (appointment.cancelled_at !== null) {
       return res
-        .status(401)
+        .status(403)
         .json({ error: 'You already cancelled this appointment' });
     }
 
     const subAppointment = subHours(appointment.date, 2);
 
     if (isBefore(subAppointment, new Date())) {
-      return res.status(401).json({
+      return res.status(403).json({
         error: 'You cannot unschedule an appointment at the last moment',
       });
     }
@@ -174,7 +173,9 @@ class AppointmentController {
 
     await appointment.save();
 
-    await Queue.add(CancellationMail.key, { appointment });
+    if (process.env.NODE_ENV !== 'test') {
+      await Queue.add(CancellationMail.key, { appointment });
+    }
 
     return res.json(appointment);
   }
