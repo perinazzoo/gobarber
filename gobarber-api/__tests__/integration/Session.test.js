@@ -6,7 +6,7 @@ import truncate from '../util/truncate';
 
 describe('Session', () => {
   afterAll(async () => {
-    await mongoose.connections.map(conn => conn.close());
+    mongoose.connections.map(conn => conn.close());
   });
 
   beforeEach(async () => {

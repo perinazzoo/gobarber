@@ -7,7 +7,7 @@ import truncate from '../util/truncate';
 
 describe('Appoitment', () => {
   afterAll(async () => {
-    await mongoose.connections.map(conn => conn.close());
+    mongoose.connections.map(conn => conn.close());
   });
 
   beforeEach(async () => {
