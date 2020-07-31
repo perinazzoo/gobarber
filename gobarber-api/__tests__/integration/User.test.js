@@ -13,7 +13,7 @@ describe('User', () => {
   });
 
   afterAll(async () => {
-    await mongoose.connections.map(conn => conn.close());
+    mongoose.connections.map(conn => conn.close());
   });
 
   it('should be able to register', async () => {
