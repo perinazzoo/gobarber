@@ -545,6 +545,10 @@ describe('Appoitment', () => {
       .send();
 
     expect(response.status).toBe(200);
-    expect(response.body[0]).toHaveProperty('id');
+    expect(
+      response.body.every(el => {
+        return el.id;
+      })
+    ).toBe(true);
   });
 });
