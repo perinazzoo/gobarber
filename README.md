@@ -8,9 +8,9 @@ O projeto consiste em uma aplicação onde prestadores de serviços de beleza po
 
 # :bookmark_tabs: Sumário
 
-<a href="./gobarber-api">Backend</a>
-<a href="./gobarber-web">Web</a>
-<a href="./mobile">Mobile</a>
+<a href="./gobarber-api">Backend</a><br/>
+<a href="./gobarber-web">Web</a><br/>
+<a href="./mobile">Mobile</a><br/>
 
 # :satellite: Tecnologias utilizadas
 
