@@ -1,6 +1,6 @@
-<img src="./.github/mockup.png" />
-
 Este projeto faz parte da trajetória do Bootcamp GoStack da Rocketseat. Nela aplicamos conhecimentos adquiridos durante os módulos, esta é uma aplicação completa (back-end, front-end web e front-end mobile).
+
+<img src="./.github/mockup.png" />
 
 # :mag: Sobre o desafio
 
