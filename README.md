@@ -6,7 +6,7 @@ Este projeto faz parte da trajetória do Bootcamp GoStack da Rocketseat. Nela ap
 
 O projeto consiste em uma aplicação onde prestadores de serviços de beleza poderão se cadastrar e receber agendamentos de clientes, que também poderão se cadastrar na aplicação, porém em sua versão mobile.
 
-# :bookmark: Sumário
+# :bookmark_tabs: Sumário
 
 <a href="./gobarber-api">Backend</a>
 <a href="./gobarber-web">Web</a>
