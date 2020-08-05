@@ -1,3 +1,5 @@
+<h1 align="center">GoBarber</h1>
+
 Este projeto faz parte da trajetória do Bootcamp GoStack da Rocketseat. Nela aplicamos conhecimentos adquiridos durante os módulos, esta é uma aplicação completa (back-end, front-end web e front-end mobile).
 
 <img src="./.github/mockup.png" />
